@@ -11,9 +11,19 @@
             constructor() {
                 super('intro');
             }
+            preload(){
+                this.load.image("background", "Artboard 17.png");
+                this.load.image("Logo1", "Logo1.png");
+                this.load.image("Logo2", "Logo2.png");
+                this.load.image("cake", "cake.png");
+                this.load.image("cookie", "cookie.png");
+                this.load.image("cross", "cross.png");
+                this.load.image("cupcake", "cupcake.png");
+
+            }
             create() {
                 this.add.text(300,220,"Example text.");
-                this.input.on('pointerdown', () => this.scene.start('body'));
+                this.input.on('pointerdown', () => this.scene.start('body1'));
 
             //  Alt method of ^
             //  this.input.on('pointerdown', () => {
@@ -24,11 +34,12 @@
 
         }
 
-        class Body extends Phaser.Scene{
+        class Body1 extends Phaser.Scene{
             constructor() {
-                super('body');
+                super('body1');
             }
             create() {
+                this.add.sprite(50,50, "background");
                 this.add.text(10,10,"This is body text.");
 
                 //creates a circle called thing
@@ -57,11 +68,31 @@
             }
         }
 
+        class Body2 extends Phaser.Scene{
+            constructor() {
+                super('body2');
+            }
+            create() {
+
+            }
+            
+        }
+
+        class Title extends Phaser.Scene{
+            constructor() {
+                super('title');
+            }
+            create() {
+
+            }
+            
+        }
+
         new Phaser.Game({
             width: 640,
             height: 480,
-            scene: [Intro, Body],
-            backgroundColor: 0x0000ff,
+            scene: [Intro, Body1,],
+            backgroundColor: 0x000000,
             });
     </script>
 </head>
