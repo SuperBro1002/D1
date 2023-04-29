@@ -20,6 +20,8 @@
                 this.load.image("cross", "cross.png");
                 this.load.image("cupcake", "cupcake.png");
                 this.load.image("laser", "Laser.png")
+                this.load.image("title", "Title.png")
+                this.load.audio("crunch","crunchupdate.mp3")
 
             }
             create() {
@@ -115,9 +117,33 @@
                     });
 
                 });
+
+                 //COOKIE
+                 this.time.delayedCall(3000, () => {
+                    this.tweens.add({
+                        targets: Cookie,
+                        x: 60,
+                        y: -80,
+                        duration: 5000,
+                        repeat: 0,
+                        hold: 500,
+                        ease: 'cubic.out'
+
+                    });
+
+                    this.tweens.add({
+                        targets: Cookie,
+                        angle: 720,
+                        duration: 5000,
+                        repeat: 0,
+                        ease: 'Sine.easeInOut'
+
+                    });
+
+                });
                 
                 //CROSS
-                this.time.delayedCall(3000, () => {
+                this.time.delayedCall(4000, () => {
                     this.tweens.add({
                         targets: Cross,
                         x: 80,
@@ -140,29 +166,8 @@
 
                 });
 
-                //COOKIE
-                this.time.delayedCall(4000, () => {
-                    this.tweens.add({
-                        targets: Cookie,
-                        x: 60,
-                        y: -80,
-                        duration: 5000,
-                        repeat: 0,
-                        hold: 500,
-                        ease: 'cubic.out'
+                
 
-                    });
-
-                    this.tweens.add({
-                        targets: Cookie,
-                        angle: 720,
-                        duration: 5000,
-                        repeat: 0,
-                        ease: 'Sine.easeInOut'
-
-                    });
-
-                });
 
 
                 //creates a circle called thing
@@ -177,8 +182,8 @@
                 // });
 
                 //Fades to black after 2 seconds
-                this.time.delayedCall(2000, () => {
-                    //this.cameras.main.fadeOut(2000,0,0,0);
+                this.time.delayedCall(5000, () => {
+                    this.cameras.main.fadeOut(2000,0,0,0);
                 });
 
                 //Moves back to intro scene
@@ -196,6 +201,7 @@
                 super('body2');
             }
             create() {
+                this.cameras.main.fadeIn(2000,0,0,0);
                 this.add.sprite(50,50, "background");
                 let L1 = this.add.sprite(-180,100,"laser"); //top left
                 let L2 = this.add.sprite(760,410,"laser"); //bottom right
@@ -262,6 +268,9 @@
                     
                 });
 
+                this.time.delayedCall(4400, () => {
+                    this.scene.start('title');
+                });
             }
             
         }
@@ -271,7 +280,27 @@
                 super('title');
             }
             create() {
+                this.add.sprite(50,50, "background");
+                this.cameras.main.fadeIn(2000,0,0,0)
+                let name = this.add.sprite(320,80,"title");
+                let start = this.add.text(285,240,"Start");
+                let option = this.add.text(285,280,"Options");
+                let quit = this.add.text(285,320,"Quit");
+                let r4 = this.add.circle(265, 255, 15, 0x000000);
+                let lines = this.add.rectangle(323,115,590,10,0x000000);
+                
+                this.tweens.add({
+                    targets: r4,
+                    scaleX: 0.5,
+                    scaleY: 0.5,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: 'Sine.easeInOut'
+                    });
 
+                start.scale = 2;
+                option.scale = 2;
+                quit.scale = 2;
             }
             
         }
@@ -279,7 +308,7 @@
         new Phaser.Game({
             width: 640,
             height: 480,
-            scene: [Intro, Body1, Body2,],
+            scene: [Intro, Body1, Body2, Title,],
             backgroundColor: 0x000000,
             });
     </script>
